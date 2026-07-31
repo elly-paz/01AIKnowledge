@@ -60,3 +60,26 @@ def get_notes():
     conn.close()
 
     return data
+
+
+def search_notes(keyword):
+
+    conn = sqlite3.connect(DB_NAME)
+
+    cursor = conn.cursor()
+
+    cursor.execute(
+        """
+        SELECT title, content
+        FROM notes
+        WHERE title LIKE ? OR content LIKE ?
+        ORDER BY id DESC
+        """,
+        (f"%{keyword}%", f"%{keyword}%")
+    )
+
+    data = cursor.fetchall()
+
+    conn.close()
+
+    return data
