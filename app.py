@@ -16,8 +16,19 @@ title = st.text_input(
 
 
 content = st.text_area(
-    "笔记内容"
+    "笔记内容（支持 Markdown）",
+    help="请输入 Markdown 内容，保存后会以原文保存"
 )
+
+st.subheader("📖 Markdown 实时预览")
+
+if content:
+
+    st.markdown(content)
+
+else:
+
+    st.info("请输入 Markdown 内容后，可在此看到预览")
 
 
 if st.button("保存笔记"):
@@ -61,10 +72,5 @@ st.subheader("📚 我的历史笔记")
 
 for note in notes:
 
-    st.markdown(
-        f"""
-        ### {note[0]}
-
-        {note[1]}
-        """
-    )
+    st.subheader(note[0])
+    st.markdown(note[1])
